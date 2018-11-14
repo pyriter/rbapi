@@ -1,4 +1,3 @@
 # rbapi
 
-A nodejs library for communicating with the Robinhood API.
-
+A nodejs library for trading stocks on Robinhood
