@@ -1,0 +1,21 @@
+{
+  "username": "",
+  "password": "",
+  "client_id": "c82SH0WZOsabOXGP2sxqcj34FxkvfnWRZBKlBjFS",
+  "grant_type": "password",
+  "hostname": "https://api.robinhood.com",
+  "endpoints": {
+    "accounts": "/accounts/",
+    "authenticate": "/oauth2/token/",
+    "instruments": "/instruments/",
+    "orders": "/orders/",
+    "quotes": "/quotes/",
+    "user": {
+      "default": "/user/",
+      "basicInfo": "/user/basic_info/",
+      "investmentProfile": "/user/investment_profile/",
+      "employment": "/user/employment/",
+      "additionalInfo": "/user/additional_info/"
+    }
+  }
+}

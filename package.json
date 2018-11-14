@@ -1,0 +1,36 @@
+{
+  "name": "rbapi",
+  "version": "1.0.0",
+  "description": "A nodejs library for communicating with Robinhood's Web API",
+  "scripts": {
+    "test": "nyc --reporter=html --reporter=text mocha tests/**/*.js",
+    "start": "node ./src/main.js",
+    "build": "rimraf ./lib && webpack --config webpack.config.js"
+  },
+  "main": "lib/rbapi.js",
+  "author": "Phong Vuong",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pyriter/rbapi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pyriter/rbapi/issues"
+  },
+  "homepage": "https://github.com/pyriter/rbapi",
+  "dependencies": {
+    "axios": "0.18.0",
+    "https": "1.0.0",
+    "lodash": "4.17.11",
+    "querystring": "0.2.0",
+    "request": "2.87.0"
+  },
+  "devDependencies": {
+    "chai": "4.1.2",
+    "mocha": "5.2.0",
+    "nyc": "13.0.1",
+    "rimraf": "2.6.2",
+    "webpack": "4.23.1",
+    "webpack-cli": "3.1.2"
+  }
+}
