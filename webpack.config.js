@@ -8,6 +8,7 @@ const path = require('path');
 module.exports = {
     entry: './src/main.js',
     mode: 'production',
+    target: 'node',
     output: {
         filename: 'rbapi.js',
         path: path.resolve(__dirname, 'lib')

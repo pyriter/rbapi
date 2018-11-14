@@ -1,13 +1,13 @@
 {
   "name": "rbapi",
-  "version": "1.0.1",
+  "version": "1.0.8",
   "description": "A nodejs library for communicating with Robinhood's Web API",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha tests/**/*.js",
     "start": "node ./src/main.js",
     "build": "rimraf ./lib && webpack --config webpack.config.js"
   },
-  "main": "lib/rbapi.js",
+  "main": "src/main.js",
   "author": "Phong Vuong",
   "license": "ISC",
   "repository": {
