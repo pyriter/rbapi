@@ -12,7 +12,7 @@ const quotes = require('./quotes.service');
 const user = require('./user.service');
 
 // initialization
-const interceptor = require('./authorization.interceptor'); //setup the interceptor
+const interceptor = require('./authentication.interceptor'); //setup the interceptor
 
 module.exports = {
     interceptor,

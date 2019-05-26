@@ -10,7 +10,7 @@ const config = require('../../../src/config');
 
 describe('User', () => {
     before(async () => {
-        await api.authenticate.login(config.username, config.password);
+        await api.authenticate.login(config);
     });
 
     describe('get', () => {

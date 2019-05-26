@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const connect = require('../modules/connection/connect');
+const connect = require('../connection/connect');
 const config = require('../config.json');
 
 /*
@@ -33,6 +33,7 @@ async function quotes(options) {
     }
     return await connect.get({
         url: `${config.endpoints.quotes}${options.stockSymbol}/`,
+        authorization: true,
         ...options
     });
 }

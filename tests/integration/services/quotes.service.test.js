@@ -5,10 +5,15 @@
 "use strict";
 const assert = require('chai').assert;
 const api = require("../../../src/services/robinhood.services");
+const config = require('../../../src/config');
 
 const stock = "AAPL";
 
 describe('Quotes', () => {
+    before(async () => {
+        await api.authenticate.login(config);
+    });
+
     describe('quote', () => {
         it('should return information about a stock', async () => {
             // arrange

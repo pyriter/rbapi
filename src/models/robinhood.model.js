@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const rbApi = require('../services/robinhood.services');
+const robinhoodServices = require('../services/robinhood.services');
 const _ = require('lodash');
 const User = require('./user.model');
 const Quote = require('./quote.model');
@@ -30,16 +30,12 @@ function validateEnum(val, Enum) {
 const RobinHood = (function () {
 
     function RobinHood(credentials) {
-        if (!credentials) throw TypeError('credentials');
-        if (!_.isString(credentials.username)) throw TypeError('username');
-        if (!_.isString(credentials.password)) throw TypeError('password');
-
         this.credentials = credentials;
     }
 
     RobinHood.prototype.login = async function () {
         try {
-            await rbApi.authenticate.login(this.credentials.username, this.credentials.password);
+            await robinhoodServices.authenticate.login(this.credentials);
         } catch (error) {
             let message = `Failed to authenticate. Please check username and password. ${error}`;
             console.error(message);
@@ -55,7 +51,7 @@ const RobinHood = (function () {
 
     RobinHood.prototype.quote = async function (stockSymbol) {
         if (stockSymbol && !stockSymbol.length) throw new TypeError('stockSymbol');
-        let response = await rbApi.quotes({stockSymbol});
+        let response = await robinhoodServices.quotes({stockSymbol});
         let quote = new Quote();
         quote.initializeFromQuotes(response);
         return quote;
@@ -84,9 +80,9 @@ const RobinHood = (function () {
 
         validateEnum(options.orderType, OrderType);
 
-        let instrument = await rbApi.instruments.bySymbol({stockSymbol: options.stockSymbol});
+        let instrument = await robinhoodServices.instruments.bySymbol({stockSymbol: options.stockSymbol});
 
-        return await rbApi.orders.place({
+        return await robinhoodServices.orders.place({
             data: {
                 symbol: options.stockSymbol,
                 price: options.price,
@@ -101,12 +97,21 @@ const RobinHood = (function () {
         });
     };
 
+    RobinHood.prototype.cancelOrder = async function (orderId) {
+        if (!orderId || orderId.length === 0 || typeof orderId !== 'string')
+            throw new TypeError('orderId must be a defined string');
+
+        return await robinhoodServices.orders.cancel({
+            id: orderId
+        })
+    };
+
     async function createUser() {
         let user = new User();
-        user.initializeFromUserGet(await rbApi.user.get());
-        user.initializeFromUserBasicInfo(await rbApi.user.getBasicInfo());
-        user.initializeFromAccountGet(await rbApi.accounts.get());
-        user.initializeFromAccountProfile(await rbApi.accounts.portfolio({id: user.account.id}));
+        user.initializeFromUserGet(await robinhoodServices.user.get());
+        user.initializeFromUserBasicInfo(await robinhoodServices.user.getBasicInfo());
+        user.initializeFromAccountGet(await robinhoodServices.accounts.get());
+        user.initializeFromAccountProfile(await robinhoodServices.accounts.portfolio({id: user.account.id}));
         return user;
     }
 

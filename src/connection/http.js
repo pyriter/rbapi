@@ -6,7 +6,7 @@
 'use strict';
 
 const axios = require('axios');
-const config = require('../../config');
+const config = require('../config');
 
 const http = axios.create({
     baseURL: config.hostname

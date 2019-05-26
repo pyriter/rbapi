@@ -5,17 +5,19 @@
 'use strict';
 
 const assert = require('chai').assert;
-const Robinhood = require('../../src/main');
-const config = require('../../src/config.json');
+const Robinhood = require('../../../src/main');
+const config = require('../../../src/config.json');
 
 describe('Robinhood', () => {
+    let credentials = {
+        username: config.username,
+        password: config.password,
+        deviceToken: config.deviceToken
+    };
 
     describe('user object', () => {
         it('should be set with defined basic fields', async () => {
-            let robinhood = await Robinhood.create({
-                username: config.username,
-                password: config.password
-            });
+            let robinhood = await Robinhood.create(credentials);
             assert.isNotNull(robinhood);
             assert.isString(robinhood.user.createdAt);
             assert.isString(robinhood.user.email);
@@ -24,7 +26,6 @@ describe('Robinhood', () => {
             assert.isString(robinhood.user.id);
             assert.isString(robinhood.user.lastName);
             assert.isString(robinhood.user.username);
-
 
             assert.isString(robinhood.user.phoneNumber);
             assert.isString(robinhood.user.taxIdSsn);
@@ -42,10 +43,7 @@ describe('Robinhood', () => {
         });
 
         it('should be set with account property defined', async () => {
-            let robinhood = await Robinhood.create({
-                username: config.username,
-                password: config.password
-            });
+            let robinhood = await Robinhood.create(credentials);
             assert.isNotNull(robinhood);
             assert.isNotNull(robinhood.user);
             assert.isNotNull(robinhood.user.account);
@@ -58,10 +56,7 @@ describe('Robinhood', () => {
     describe('quote', () => {
         it('should allow access to a quote', async () => {
             // Arrange
-            let robinhood = await Robinhood.create({
-                username: config.username,
-                password: config.password
-            });
+            let robinhood = await Robinhood.create(credentials);
 
             let stockSymbol = 'AAPL';
 
@@ -78,28 +73,27 @@ describe('Robinhood', () => {
     });
 
     describe('buy', () => {
-        it('should allow you to buy a stock using limit type', async () => {
+        it('should allow you to buy a stock using limit type and then remove it', async () => {
             // Arrange
-            let robinhood = await Robinhood.create({
-                username: config.username,
-                password: config.password
-            });
+            let robinhood = await Robinhood.create(credentials);
 
             let stockSymbol = 'AAPL';
 
             // Act
-            let sut = await robinhood.buy({
+            let buyResponse = await robinhood.buy({
                 stockSymbol: stockSymbol,
                 quantity: 1,
                 orderType: Robinhood.OrderType.LIMIT,
                 price: 1.00
             });
 
+            let cancelResponse = await robinhood.cancelOrder(buyResponse.id);
+
             // Assert
-            assert.isDefined(sut);
-            assert.isString(sut.created_at);
-            assert.equal(sut.side, 'buy');
+            assert.isDefined(buyResponse);
+            assert.isString(buyResponse.created_at);
+            assert.equal(buyResponse.side, 'buy');
+            assert.isDefined(cancelResponse);
         });
     });
-
 });

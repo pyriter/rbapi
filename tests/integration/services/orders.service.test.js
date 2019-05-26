@@ -24,7 +24,7 @@ describe('Orders', () => {
     };
 
     before(async () => {
-        await api.authenticate.login(config.username, config.password);
+        await api.authenticate.login(config);
 
         let response = await api.instruments.bySymbol({stockSymbol});
         options.data.instrument = response.url;
