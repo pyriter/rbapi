@@ -25,7 +25,7 @@ const rbapi = require('rbapi');
         The deviceToken is a bit difficult to get but here's how you do that:
             1. Open the chrome browser
             2. Go to robinhood.com
-            3. Log out if you logged in
+            3. Log out if you are already logged in to robinhood
             4. Open up the developer tool
             5. Navigate to the Network tab
             6. Click on the clear icon to clear the network history
