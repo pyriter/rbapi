@@ -6,7 +6,7 @@
 
 const connect = require('../connection/connect');
 const querystring = require('querystring');
-const defaultConfig = require('../config');
+const config = require('../config');
 
 const accessInfo = {
     username: null,
@@ -23,29 +23,29 @@ const accessInfo = {
     }
 };
 
-async function login(config) {
-    if (!config.username || !config.password || !config.deviceToken) {
+async function login(credentials) {
+    if (!credentials.username || !credentials.password || !credentials.deviceToken) {
         throw new TypeError('config must have username, password and deviceToken fields defined');
     }
 
-    if (config.username === accessInfo.username && config.password === accessInfo.password) return accessInfo;
+    if (credentials.username === accessInfo.username && credentials.password === accessInfo.password) return accessInfo;
     accessInfo.clearCache();
 
     let data = querystring.stringify({
-        username: config.username,
-        password: config.password,
-        device_token: config.deviceToken,
-        grant_type: defaultConfig.grantType,
-        client_id: defaultConfig.clientId
+        username: credentials.username,
+        password: credentials.password,
+        device_token: credentials.deviceToken,
+        grant_type: config.grantType,
+        client_id: config.clientId
     });
 
     let response = await connect.post({
-        url: defaultConfig.endpoints.authenticate,
+        url: config.endpoints.authenticate,
         data: data,
     });
 
-    accessInfo.username = config.username;
-    accessInfo.password = config.password;
+    accessInfo.username = credentials.username;
+    accessInfo.password = credentials.password;
     accessInfo.accessToken = response.access_token;
     accessInfo.refreshToken = response.refresh_token;
 

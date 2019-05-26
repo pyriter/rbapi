@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const config = require('../../../src/config');
+const credentials = require('../../../test-credentials.config');
 const assert = require('chai').assert;
 const api = require('../../../src/services/robinhood.services');
 
@@ -24,7 +24,7 @@ describe('Orders', () => {
     };
 
     before(async () => {
-        await api.authenticate.login(config);
+        await api.authenticate.login(credentials);
 
         let response = await api.instruments.bySymbol({stockSymbol});
         options.data.instrument = response.url;

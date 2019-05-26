@@ -7,13 +7,13 @@
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 const api = require('../../../src/services/robinhood.services');
-const config = require('../../../src/config');
+const credentials = require('../../../test-credentials.config');
 
 describe('Authenticate', () => {
     describe('login', () => {
         it('should return a token when using the username and password from config', async () => {
             // act
-            let sut = await api.authenticate.login(config);
+            let sut = await api.authenticate.login(credentials);
 
             // assert
             assert.isNotNull(sut);
@@ -21,8 +21,8 @@ describe('Authenticate', () => {
             assert.isTrue(typeof sut.accessToken === 'string');
             assert.isNotNull(sut.refreshToken);
             assert.isTrue(typeof sut.refreshToken === 'string');
-            assert.isTrue(config.username === sut.username);
-            assert.isTrue(config.password === sut.password);
+            assert.isTrue(credentials.username === sut.username);
+            assert.isTrue(credentials.password === sut.password);
         });
 
         it('should fail when using an invalid username and password', async () => {

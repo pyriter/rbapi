@@ -6,7 +6,7 @@
 
 const assert = require('chai').assert;
 const Robinhood = require('../../../src/main');
-const config = require('../../../src/config.json');
+const config = require('../../../test-credentials.config');
 
 describe('Robinhood', () => {
     let credentials = {

@@ -6,11 +6,11 @@
 
 const assert = require('chai').assert;
 const api = require('../../../src/services/robinhood.services');
-const config = require('../../../src/config');
+const credentials = require('../../../test-credentials.config');
 
 describe('User', () => {
     before(async () => {
-        await api.authenticate.login(config);
+        await api.authenticate.login(credentials);
     });
 
     describe('get', () => {
