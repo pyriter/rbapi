@@ -6,15 +6,9 @@
 
 const assert = require('chai').assert;
 const Robinhood = require('../../../src/main');
-const config = require('../../../test-credentials.config');
+const credentials = require('../../../test-credentials.config');
 
 describe('Robinhood', () => {
-    let credentials = {
-        username: config.username,
-        password: config.password,
-        deviceToken: config.deviceToken
-    };
-
     describe('user object', () => {
         it('should be set with defined basic fields', async () => {
             let robinhood = await Robinhood.create(credentials);
