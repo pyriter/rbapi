@@ -1,6 +1,6 @@
 {
   "name": "rbapi",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "A nodejs library for communicating with Robinhood's API",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --timeout 15000 tests/**/*.js",
