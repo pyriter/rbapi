@@ -4,7 +4,8 @@ A nodejs library for trading stocks on Robinhood.
 
 This library strives for ease of use. The calls to Robinhood's api have been abstracted so you only need to care about the stock symbol, the price and the quantity. 
 
-##Features:
+##Features
+
  - Get user and account information  
  - Get stock quote
  - Place a buy order
