@@ -2,8 +2,15 @@
 
 A nodejs library for trading stocks on Robinhood.
 
-This library strives for ease of use. At the moment you can only buy and sell stocks on your Robinhood account. The calls to Robinhood's api have been abstracted so you only need to care about the stock symbol, the price and the quantity. Just keeping things simple =). The library will create a robinhood instance that holds the user and account information
+This library strives for ease of use. The calls to Robinhood's api have been abstracted so you only need to care about the stock symbol, the price and the quantity. 
 
+##Features:
+ - Get user and account information  
+ - Get stock quote
+ - Place a buy order
+ - Place a sell order
+ - Automatically renew the access token so you only have to login once
+  
 ## Installing
 
 Using Npm:
@@ -83,14 +90,25 @@ const rbapi = require('rbapi');
         deviceToken: 'my-unique-device-token'
     });
 
-    let buy = await robinhood.buy({
+    // Place a limit order
+    let limitBuy = await robinhood.buy({
         orderType: rbapi.OrderType.LIMIT,
         stockSymbol: 'AAPL',
         quantity: 1,
         price: 1.00
     });
 
-    console.log(buy);
+    console.log(limitBuy);
+    
+    // Place a market order
+    let marketBuy = await robinhood.buy({
+        orderType: rbapi.OrderType.MARKET,
+        stockSymbol: 'AAPL',
+        quantity: 1
+    });
+
+    console.log(marketBuy);
+    
 })();
 
 ```
@@ -109,14 +127,25 @@ const rbapi = require('rbapi');
         deviceToken: 'my-unique-device-token'
     });
 
-    let sell = await robinhood.sell({
+    // Place a limit order to sell a stock
+    let limitSell = await robinhood.sell({
         orderType: rbapi.OrderType.LIMIT,
         stockSymbol: 'AAPL',
         quantity: 1,
         price: 1.00
     });
 
-    console.log(sell);
+    console.log(limitSell);
+    
+     // Place a market order to sell a stock
+    let marketSell = await robinhood.sell({
+        orderType: rbapi.OrderType.LIMIT,
+        stockSymbol: 'AAPL',
+        quantity: 1
+    });
+   
+    console.log(marketSell);
+    
 })();
 ```
 
