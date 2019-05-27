@@ -1,6 +1,5 @@
 {
   "clientId": "c82SH0WZOsabOXGP2sxqcj34FxkvfnWRZBKlBjFS",
-  "grantType": "password",
   "hostname": "https://api.robinhood.com",
   "endpoints": {
     "accounts": "/accounts/",
