@@ -87,10 +87,35 @@ const RobinHood = (function () {
                 symbol: options.stockSymbol,
                 price: options.price,
                 quantity: options.quantity,
+                type: options.orderType,
                 side: TradeType.BUY,
                 trigger: "immediate", // TODO: Provide as options
                 time_in_force: "gfd", // TODO: Provide as an option
+                account: this.user.account.url,
+                instrument: instrument.url
+            }
+        });
+    };
+
+    RobinHood.prototype.sell = async function (options) {
+        if (!options) throw new TypeError('options');
+
+        if (!_.isString(options.stockSymbol)) throw new TypeError('stockSymbol');
+        if (!_.isNumber(options.quantity)) throw new TypeError('numberOfShares');
+
+        validateEnum(options.orderType, OrderType);
+
+        let instrument = await robinhoodServices.instruments.bySymbol({stockSymbol: options.stockSymbol});
+
+        return await robinhoodServices.orders.place({
+            data: {
+                symbol: options.stockSymbol,
+                price: options.price,
+                quantity: options.quantity,
                 type: options.orderType,
+                side: TradeType.SELL,
+                trigger: "immediate", // TODO: Provide as options
+                time_in_force: "gfd", // TODO: Provide as an option
                 account: this.user.account.url,
                 instrument: instrument.url
             }

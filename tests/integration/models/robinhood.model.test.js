@@ -90,4 +90,29 @@ describe('Robinhood', () => {
             assert.isDefined(cancelResponse);
         });
     });
+
+    xdescribe('sell', () => {
+        it('should allow you to sell a stock using limit type and then remove it', async () => {
+            // Arrange
+            let robinhood = await Robinhood.create(credentials);
+
+            let stockSymbol = 'AAPL';
+
+            // Act
+            let response = await robinhood.sell({
+                stockSymbol: stockSymbol,
+                quantity: 1,
+                orderType: Robinhood.OrderType.LIMIT,
+                price: 1.00
+            });
+
+            let cancelResponse = await robinhood.cancelOrder(response.id);
+
+            // Assert
+            assert.isDefined(response);
+            assert.isString(response.created_at);
+            assert.equal(response.side, 'sell');
+            assert.isDefined(cancelResponse);
+        });
+    });
 });

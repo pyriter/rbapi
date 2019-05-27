@@ -26,21 +26,13 @@ async function post(config) {
 async function connect(config) {
     try {
         config = config || {};
-        /*
-        config.headers = {
-            'Accept': '*
-            'Accept-Encoding': 'gzip, deflate',
-            'Accept-Language': 'en;q=1, fr;q=0.9, de;q=0.8, ja;q=0.7, nl;q=0.6, it;q=0.5',
-            'Connection': 'keep-alive',
-            'X-Robinhood-API-Version': '1.152.0',
-            'User-Agent': 'Robinhood/5.32.0 (com.robinhood.release.Robinhood; build:3814; iOS 10.3.3)'
-        };
-        */
         let response = await http(config);
         return response.data;
     } catch (error) {
-        let message = `Failed to ${config.method} ${config.url}. ${error}`;
+        let message = `Failed to ${config.method} ${config.url}. ${error}.`;
         console.error(message);
+        if(error && error.response && error.response.data)
+            console.error(`Response from server ${JSON.stringify(error.response.data)}`);
         return Promise.reject(error);
     }
 }

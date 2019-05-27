@@ -1,11 +1,12 @@
-# rbapi
+## rbapi
 
-A nodejs library for trading stocks on Robinhood
+A nodejs library for trading stocks on Robinhood.
 
+This library strives for ease of use. At the moment you can only buy and sell stocks on your Robinhood account. The calls to Robinhood's api have been abstracted so you only need to care about the stock, the price and the quantity. Just keeping things simple =). The library will create a robinhood instance that holds the user and account information
 
 ## Installing
 
-Using npm:
+Using Npm:
 
 ```bash
 $ npm install rbapi --save
@@ -45,7 +46,7 @@ const rbapi = require('rbapi');
 
 ```
 
-Getting a stock quote
+Getting A Stock Quote
 
 ```js
 
@@ -68,7 +69,7 @@ const rbapi = require('rbapi');
 
 ```
 
-Buying stock 
+Buying Stock 
 
 ```js
 
@@ -82,19 +83,41 @@ const rbapi = require('rbapi');
         deviceToken: 'my-unique-device-token'
     });
 
-
-    let stockSymbol = 'AAPL';
-
     let buy = await robinhood.buy({
-        stockSymbol: stockSymbol,
+        orderType: rbapi.OrderType.LIMIT,
+        stockSymbol: 'AAPL',
         quantity: 1,
-        orderType: Robinhood.OrderType.LIMIT,
         price: 1.00
     });
 
     console.log(buy);
 })();
 
+```
+
+Selling Stock 
+
+```js
+
+const rbapi = require('rbapi');
+
+(async function() {
+
+    let robinhood =  await rbapi.create({
+        username: 'username@email.com',
+        password: 'mypassword',
+        deviceToken: 'my-unique-device-token'
+    });
+
+    let sell = await robinhood.sell({
+        orderType: rbapi.OrderType.LIMIT,
+        stockSymbol: 'AAPL',
+        quantity: 1,
+        price: 1.00
+    });
+
+    console.log(sell);
+})();
 ```
 
 ## License
