@@ -10,16 +10,11 @@ const authenticationService = require('./authentication.service');
 
 async function requestSuccessInterceptor(config) {
     if (config.url !== configuration.endpoints.authenticate && config.authorization) {
-        // It should login if the accessToken is null
-        if (!authenticationService.access.accessToken) {
-            try {
-                await authenticationService.login(authenticationService.access.username, authenticationService.access.password);
-            } catch (error) {
-                console.error(`Failed to login with username: ${authenticationService.access.username}`);
-                return Promise.reject(error);
-            }
+
+        // Refresh the access token if it is about to expire
+        if (authenticationService.access.accessToken && !authenticationService.access.isTokenStillValid()) {
+            await authenticationService.refreshAccessToken();
         }
-        // TODO: Check that the token is about to expire and do a login call with the refresh token
 
         config.headers['Authorization'] = `Bearer ${authenticationService.access.accessToken}`;
     }

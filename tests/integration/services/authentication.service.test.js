@@ -68,6 +68,7 @@ describe('Authenticate', () => {
 
         it('should clear the cached access token if the cached refresh token does not authenticate', async () => {
             // arrange
+            await api.authenticate.login(credentials);
             let access = api.authenticate.access;
             access.refreshToken = 'this-refresh-token-doesnt-work';
 
@@ -81,6 +82,25 @@ describe('Authenticate', () => {
                 expect(access.password).to.be.null;
                 expect(access.expiration).to.be.null;
             }
+        });
+
+        it('should refresh the access token if the token is expired', async () => {
+            // arrange
+            await api.authenticate.login(credentials);
+            let beforeRefresh = JSON.parse(JSON.stringify(api.authenticate.access));
+            let isTokenStillValid = api.authenticate.access.isTokenStillValid;
+            api.authenticate.access.isTokenStillValid = () => false;
+
+            // act
+            await api.accounts.get();
+            let afterRefresh = JSON.parse(JSON.stringify(api.authenticate.access));
+
+            // assert
+            expect(beforeRefresh.accessToken).to.not.equal(afterRefresh.accessToken);
+            expect(beforeRefresh.refreshToken).to.not.equal(afterRefresh.refreshToken);
+            expect(api.authenticate.access.expiration).to.not.be.undefined;
+
+            api.authenticate.access.isTokenStillValid = isTokenStillValid;
         });
     });
 });
