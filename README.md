@@ -4,7 +4,7 @@ A nodejs library for trading stocks on Robinhood.
 
 This library strives for ease of use. The calls to Robinhood's api have been abstracted so you only need to care about the stock symbol, the price and the quantity. 
 
-##Features
+## Features
 
  - Get user and account information  
  - Get stock quote
@@ -140,7 +140,7 @@ const rbapi = require('rbapi');
     
      // Place a market order to sell a stock
     let marketSell = await robinhood.sell({
-        orderType: rbapi.OrderType.LIMIT,
+        orderType: rbapi.OrderType.MARKET,
         stockSymbol: 'AAPL',
         quantity: 1
     });
