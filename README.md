@@ -2,7 +2,7 @@
 
 A nodejs library for trading stocks on Robinhood.
 
-This library strives for ease of use. At the moment you can only buy and sell stocks on your Robinhood account. The calls to Robinhood's api have been abstracted so you only need to care about the stock, the price and the quantity. Just keeping things simple =). The library will create a robinhood instance that holds the user and account information
+This library strives for ease of use. At the moment you can only buy and sell stocks on your Robinhood account. The calls to Robinhood's api have been abstracted so you only need to care about the stock symbol, the price and the quantity. Just keeping things simple =). The library will create a robinhood instance that holds the user and account information
 
 ## Installing
 
