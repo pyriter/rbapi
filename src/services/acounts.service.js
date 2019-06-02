@@ -9,8 +9,7 @@ const config = require('../config.json');
 
 async function get() {
     let response = await connect.get({
-        url: config.endpoints.accounts,
-        authorization: true
+        url: config.endpoints.accounts
     });
     if (response.results && response.results.length > 0) {
         return response.results[0];

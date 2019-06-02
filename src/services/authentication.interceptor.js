@@ -9,7 +9,7 @@ const configuration = require('../config');
 const authenticationService = require('./authentication.service');
 
 async function requestSuccessInterceptor(config) {
-    if (config.url !== configuration.endpoints.authenticate && config.authorization) {
+    if (config.url !== configuration.endpoints.authenticate) {
 
         // Refresh the access token if it is about to expire
         if (authenticationService.access.accessToken && !authenticationService.access.isTokenStillValid()) {

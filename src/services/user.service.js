@@ -7,10 +7,6 @@
 const connect = require('../connection/connect');
 const config = require('../config.json');
 
-const userConfig = {
-    authorization: true
-};
-
 /*
 return {
     "username": string,
@@ -31,8 +27,7 @@ return {
  */
 async function get() {
     return await connect.get({
-        url: config.endpoints.user.default,
-        ...userConfig
+        url: config.endpoints.user.default
     });
 }
 
@@ -56,8 +51,7 @@ return {
  */
 async function getBasicInfo() {
     return await connect.get({
-        url: config.endpoints.user.basicInfo,
-        ...userConfig
+        url: config.endpoints.user.basicInfo
     });
 }
 
@@ -85,8 +79,7 @@ return {
  */
 async function getInvestmentProfile() {
     return await connect.get({
-        url: config.endpoints.user.investmentProfile,
-        ...userConfig
+        url: config.endpoints.user.investmentProfile
     });
 }
 
@@ -106,8 +99,7 @@ return {
  */
 async function getEmployment() {
     return await connect.get({
-        url: config.endpoints.user.employment,
-        ...userConfig
+        url: config.endpoints.user.employment
     });
 }
 
@@ -131,8 +123,7 @@ return {
  */
 async function getAdditionalInfo() {
     return await connect.get({
-        url: config.endpoints.user.additionalInfo,
-        ...userConfig
+        url: config.endpoints.user.additionalInfo
     });
 }
 

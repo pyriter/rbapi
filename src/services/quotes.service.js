@@ -33,7 +33,6 @@ async function quotes(options) {
     }
     return await connect.get({
         url: `${config.endpoints.quotes}${options.stockSymbol}/`,
-        authorization: true,
         ...options
     });
 }
