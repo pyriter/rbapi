@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/pyriter/rbapi",
   "dependencies": {
-    "axios": "0.18.0",
+    "axios": "0.19.0",
     "https": "1.0.0",
     "lodash": "4.17.11",
     "querystring": "0.2.0",
