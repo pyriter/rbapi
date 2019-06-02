@@ -4,12 +4,23 @@
  */
 
 'use strict';
+const robinhoodServices = require('../services/robinhood.services');
 
 const User = (function () {
 
-    function User() { }
+    function User() {
+    }
 
-    User.prototype.initializeFromUserGet = function (data) {
+    User.prototype.update = async function () {
+        return Promise.all([
+            this.initializeFromUserGet(),
+            this.initializeFromUserBasicInfo(),
+            this.initializeFromAccountGet()
+        ]);
+    };
+
+    User.prototype.initializeFromUserGet = async function () {
+        let data = await robinhoodServices.user.get();
         if (!data) throw new TypeError('data');
         this.username = data.username;
         this.firstName = data.first_name;
@@ -19,7 +30,8 @@ const User = (function () {
         this.id = data.id;
     };
 
-    User.prototype.initializeFromUserBasicInfo = function (data) {
+    User.prototype.initializeFromUserBasicInfo = async function () {
+        let data = await robinhoodServices.user.getBasicInfo();
         if (!data) throw new TypeError('data');
 
         this.phoneNumber = data.phone_number;
@@ -36,7 +48,8 @@ const User = (function () {
         this.taxIdSsn = data.tax_id_ssn;
     };
 
-    User.prototype.initializeFromAccountGet = function(data) {
+    User.prototype.initializeFromAccountGet = async function () {
+        let data = await robinhoodServices.accounts.get();
         if (!data) throw new TypeError('data');
         let account = {
             ...this.account,
@@ -44,9 +57,12 @@ const User = (function () {
             url: data.url
         };
         this.account = account;
+
+        await this.initializeFromAccountProfile();
     };
 
-    User.prototype.initializeFromAccountProfile = function(data) {
+    User.prototype.initializeFromAccountProfile = async function () {
+        let data = await robinhoodServices.accounts.portfolio({id: this.account.id});
         if (!data) throw new TypeError('data');
         let account = {
             ...this.account,

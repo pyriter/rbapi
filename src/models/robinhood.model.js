@@ -46,7 +46,8 @@ const RobinHood = (function () {
     RobinHood.prototype.initialize = async function () {
         if (this.user) return; // The user object has been created so don't proceed
 
-        this.user = await createUser();
+        this.user = new User();
+        await this.user.update();
     };
 
     RobinHood.prototype.quote = async function (stockSymbol) {
@@ -130,15 +131,6 @@ const RobinHood = (function () {
             id: orderId
         })
     };
-
-    async function createUser() {
-        let user = new User();
-        user.initializeFromUserGet(await robinhoodServices.user.get());
-        user.initializeFromUserBasicInfo(await robinhoodServices.user.getBasicInfo());
-        user.initializeFromAccountGet(await robinhoodServices.accounts.get());
-        user.initializeFromAccountProfile(await robinhoodServices.accounts.portfolio({id: user.account.id}));
-        return user;
-    }
 
     return RobinHood;
 })();

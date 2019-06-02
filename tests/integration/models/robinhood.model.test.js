@@ -34,6 +34,9 @@ describe('Robinhood', () => {
             assert.isNumber(robinhood.user.numberDependents);
             assert.isString(robinhood.user.citizenship);
             assert.isString(robinhood.user.updatedAt);
+            assert.isString(robinhood.user.account.id);
+            assert.isString(robinhood.user.account.url);
+            assert.isString(robinhood.user.account.marketValue);
         });
 
         it('should be set with account property defined', async () => {
