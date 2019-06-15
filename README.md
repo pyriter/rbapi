@@ -153,3 +153,20 @@ const rbapi = require('rbapi');
 ## License
 
 MIT
+
+## Development
+
+If you are going to do fork this library and add to it you can do so by following these steps
+
+```bash
+git clone git@github.com:pyriter/rbapi.git
+cd rbapi
+npm install
+touch test-credentials.config.json
+vim test-credentials.config.json #Add your robinhood credentials
+npm run test
+
+#Once you are done and are ready to publish
+npm version [major|minor|patch]
+npm publish
+```
