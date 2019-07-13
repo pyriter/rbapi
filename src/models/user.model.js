@@ -54,7 +54,11 @@ const User = (function () {
         let account = {
             ...this.account,
             id: data.account_number,
-            url: data.url
+            url: data.url,
+            cash: Number.parseFloat(data.cash),
+            buyingPower: Number.parseFloat(data.buying_power),
+            cashAvailableForWithdrawl: Number.parseFloat(data.cash_available_for_withdrawal),
+            cashHeldForOrders: Number.parseFloat(data.cash_held_for_orders)
         };
         this.account = account;
 
@@ -66,21 +70,21 @@ const User = (function () {
         if (!data) throw new TypeError('data');
         let account = {
             ...this.account,
-            marketValue: data.market_value,
-            excessMaintenanceWithUnclearedDeposits: data.excess_maintenance_with_uncleared_deposits,
-            withDrawableAmount: data.withdrawable_amount,
-            excessMaintenance: data.excess_maintenance,
-            lastCoreMarketValue: data.last_core_market_value,
-            unWithdrawableDeposits: data.unwithdrawable_deposits,
-            extendedHoursEquity: data.extended_hours_equity,
-            excessMargin: data.excess_margin,
-            excessMarginWithUnclearedDeposits: data.excess_margin_with_uncleared_deposits,
-            equity: data.equity, // THIS IS WHAT IS SHOWN ON THE ROBINHOOD APP
-            lastCoreEquity: data.last_core_equity,
-            adjustedEquityPreviousClose: data.adjusted_equity_previous_close,
-            equityPreviousClose: data.equity_previous_close,
+            marketValue: Number.parseFloat(data.market_value),
+            excessMaintenanceWithUnclearedDeposits: Number.parseFloat(data.excess_maintenance_with_uncleared_deposits),
+            withDrawableAmount: Number.parseFloat(data.withdrawable_amount),
+            excessMaintenance: Number.parseFloat(data.excess_maintenance),
+            lastCoreMarketValue: Number.parseFloat(data.last_core_market_value),
+            unWithdrawableDeposits: Number.parseFloat(data.unwithdrawable_deposits),
+            extendedHoursEquity: Number.parseFloat(data.extended_hours_equity),
+            excessMargin: Number.parseFloat(data.excess_margin),
+            excessMarginWithUnclearedDeposits: Number.parseFloat(data.excess_margin_with_uncleared_deposits),
+            equity: Number.parseFloat(data.equity), // THIS IS WHAT IS SHOWN ON THE ROBINHOOD APP
+            lastCoreEquity: Number.parseFloat(data.last_core_equity),
+            adjustedEquityPreviousClose: Number.parseFloat(data.adjusted_equity_previous_close),
+            equityPreviousClose: Number.parseFloat(data.equity_previous_close),
             startDate: data.start_date,
-            extendedHoursMarketValue: data.extended_hours_market_value
+            extendedHoursMarketValue: Number.parseFloat(data.extended_hours_market_value)
         };
         this.account = account;
     };

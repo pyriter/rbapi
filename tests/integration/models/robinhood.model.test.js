@@ -36,7 +36,7 @@ describe('Robinhood', () => {
             assert.isString(robinhood.user.updatedAt);
             assert.isString(robinhood.user.account.id);
             assert.isString(robinhood.user.account.url);
-            assert.isString(robinhood.user.account.marketValue);
+            assert.isNumber(robinhood.user.account.marketValue);
         });
 
         it('should be set with account property defined', async () => {
@@ -44,9 +44,9 @@ describe('Robinhood', () => {
             assert.isNotNull(robinhood);
             assert.isNotNull(robinhood.user);
             assert.isNotNull(robinhood.user.account);
-            assert.isString(robinhood.user.account.marketValue);
-            assert.isString(robinhood.user.account.excessMaintenanceWithUnclearedDeposits);
-            assert.isString(robinhood.user.account.equity);
+            assert.isNumber(robinhood.user.account.marketValue);
+            assert.isNumber(robinhood.user.account.excessMaintenanceWithUnclearedDeposits);
+            assert.isNumber(robinhood.user.account.equity);
         });
     });
 
