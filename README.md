@@ -150,6 +150,31 @@ const rbapi = require('rbapi');
 })();
 ```
 
+Orders
+
+```js
+
+(async () => {
+     // Get a list of orders
+    let orders = await robinhood.api.orders.recent();
+    console.log(orders);
+    
+    // Get specific information about an order given an id
+    let orderId = orders[0].id; 
+    let order = await robinhood.api.orders.get({
+        id: orderId
+    });
+    console.log(order);
+    
+    // Cancel an order
+    let result = await robinhood.api.orders.cancel({
+        id: orderId
+    })
+    console.log(result);
+    
+})();
+```
+
 ## License
 
 MIT

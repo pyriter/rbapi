@@ -9,9 +9,14 @@ const Robinhood = require('../../../src/main');
 const credentials = require('../../../test-credentials.config');
 
 describe('Robinhood', () => {
+    let robinhood;
+
+    before(async () => {
+        robinhood = await Robinhood.create(credentials);
+    });
+
     describe('user object', () => {
         it('should be set with defined basic fields', async () => {
-            let robinhood = await Robinhood.create(credentials);
             assert.isNotNull(robinhood);
             assert.isString(robinhood.user.createdAt);
             assert.isString(robinhood.user.email);
@@ -40,7 +45,6 @@ describe('Robinhood', () => {
         });
 
         it('should be set with account property defined', async () => {
-            let robinhood = await Robinhood.create(credentials);
             assert.isNotNull(robinhood);
             assert.isNotNull(robinhood.user);
             assert.isNotNull(robinhood.user.account);
@@ -52,15 +56,10 @@ describe('Robinhood', () => {
 
     describe('quote', () => {
         it('should allow access to a quote', async () => {
-            // Arrange
-            let robinhood = await Robinhood.create(credentials);
-
             let stockSymbol = 'AAPL';
 
-            // Act
             let quote = await robinhood.quote(stockSymbol);
 
-            // Assert
             assert.isString(quote.askPrice);
             assert.isNumber(quote.askSize);
             assert.isString(quote.bidPrice);
@@ -71,22 +70,15 @@ describe('Robinhood', () => {
 
     describe('buy', () => {
         it('should allow you to buy a stock using limit type and then remove it', async () => {
-            // Arrange
-            let robinhood = await Robinhood.create(credentials);
-
             let stockSymbol = 'AAPL';
-
-            // Act
             let buyResponse = await robinhood.buy({
                 stockSymbol: stockSymbol,
                 quantity: 1,
                 orderType: Robinhood.OrderType.LIMIT,
                 price: 1.00
             });
-
             let cancelResponse = await robinhood.cancelOrder(buyResponse.id);
 
-            // Assert
             assert.isDefined(buyResponse);
             assert.isString(buyResponse.created_at);
             assert.equal(buyResponse.side, 'buy');
@@ -96,12 +88,7 @@ describe('Robinhood', () => {
 
     xdescribe('sell', () => {
         it('should allow you to sell a stock using limit type and then remove it', async () => {
-            // Arrange
-            let robinhood = await Robinhood.create(credentials);
-
             let stockSymbol = 'AAPL';
-
-            // Act
             let response = await robinhood.sell({
                 stockSymbol: stockSymbol,
                 quantity: 1,
@@ -111,7 +98,6 @@ describe('Robinhood', () => {
 
             let cancelResponse = await robinhood.cancelOrder(response.id);
 
-            // Assert
             assert.isDefined(response);
             assert.isString(response.created_at);
             assert.equal(response.side, 'sell');

@@ -31,6 +31,7 @@ const RobinHood = (function () {
 
     function RobinHood(credentials) {
         this.credentials = credentials;
+        this.api = robinhoodServices;
     }
 
     RobinHood.prototype.login = async function () {
@@ -130,6 +131,12 @@ const RobinHood = (function () {
         return await robinhoodServices.orders.cancel({
             id: orderId
         })
+    };
+
+    RobinHood.prototype.getOrder = async function (orderId) {
+        return await robinhoodServices.orders.get({
+            id: orderId
+        });
     };
 
     return RobinHood;

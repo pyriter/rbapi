@@ -46,6 +46,16 @@ describe('Orders', () => {
         });
     });
 
+    describe('get', () => {
+        it('should get the status of a valid order', async () => {
+            let response = await api.orders.recent();
+            let id = response.results[0].id;
+            let sut = await api.orders.get({id});
+
+            assert.isDefined(sut);
+        });
+    });
+
     describe('operations', () => {
         let orderId;
 

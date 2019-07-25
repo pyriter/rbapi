@@ -7,6 +7,13 @@
 const connect = require('../connection/connect');
 const config = require('../config.json');
 
+async function get(options) {
+    return await connect.get({
+        url: `${config.endpoints.orders}${options.id}`,
+        authorization: true
+    });
+}
+
 async function recent() {
     return await connect.get({
         url: config.endpoints.orders,
@@ -32,6 +39,7 @@ async function cancel(options) {
 }
 
 module.exports = {
+    get,
     recent,
     place,
     cancel
