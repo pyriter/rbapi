@@ -8,6 +8,7 @@ const robinhoodServices = require('../services/robinhood.services');
 const _ = require('lodash');
 const User = require('./user.model');
 const Quote = require('./quote.model');
+const Order = require('./order.model');
 
 const TradeType = Object.freeze({
     BUY: 'buy',
@@ -31,7 +32,7 @@ const RobinHood = (function () {
 
     function RobinHood(credentials) {
         this.credentials = credentials;
-        this.api = robinhoodServices;
+        this.api = robinhoodServices; // TODO: remove this
     }
 
     RobinHood.prototype.login = async function () {
@@ -49,6 +50,8 @@ const RobinHood = (function () {
 
         this.user = new User();
         await this.user.update();
+
+        this.order = new Order();
     };
 
     RobinHood.prototype.quote = async function (stockSymbol) {
@@ -131,12 +134,6 @@ const RobinHood = (function () {
         return await robinhoodServices.orders.cancel({
             id: orderId
         })
-    };
-
-    RobinHood.prototype.getOrder = async function (orderId) {
-        return await robinhoodServices.orders.get({
-            id: orderId
-        });
     };
 
     return RobinHood;
