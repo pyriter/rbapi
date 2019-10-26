@@ -5,10 +5,15 @@
 "use strict";
 const assert = require('chai').assert;
 const api = require("../../../src/services/robinhood.services");
+const credentials = require('../../../test-credentials.config');
 
 const stock = "AAPL";
 
 describe('Instruments', () => {
+    before(async () => {
+        await api.authenticate.login(credentials);
+    });
+
     describe('bySymbol', () => {
         it('should return information about a valid stock instrument', async () => {
             // arrange

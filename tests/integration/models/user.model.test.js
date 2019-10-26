@@ -22,10 +22,10 @@ describe('UserModel', () => {
             await user.updateFromAccountGet();
 
             assert.isString(user.account.url);
-            assert.isNumber(user.account.cash);
             assert.isNumber(user.account.buyingPower);
             assert.isNumber(user.account.cashAvailableForWithdrawl);
             assert.isNumber(user.account.cashHeldForOrders);
+            assert.isNumber(user.account.portfolioValue);
         });
     });
 

@@ -44,6 +44,7 @@ async function bySymbol(options) {
         params: {
             symbol: options.stockSymbol
         },
+
     });
     if (response.results && response.results.length > 0) return response.results[0];
     throw new Error(`No instrument for symbol ${options.stockSymbol}`);

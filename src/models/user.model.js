@@ -55,11 +55,11 @@ const User = (function () {
             ...this.account,
             id: data.account_number,
             url: data.url,
-            cash: Number.parseFloat(data.cash),
-            buyingPower: Number.parseFloat(data.buying_power),
+            buyingPower: Number.parseFloat(data.margin_balances.day_trade_buying_power),
             cashAvailableForWithdrawl: Number.parseFloat(data.cash_available_for_withdrawal),
-            cashHeldForOrders: Number.parseFloat(data.cash_held_for_orders)
+            cashHeldForOrders: Number.parseFloat(data.cash_held_for_orders),
         };
+        account.portfolioValue = account.buyingPower + account.cashHeldForOrders;
         this.account = account;
 
         await this.updateFromAccountProfile();
